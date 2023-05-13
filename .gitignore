@@ -37,3 +37,6 @@ Help/
 .nuget/
 
 # Outros arquivos e diretórios específicos do seu projeto
+
+# Arquivos do replit.com
+*.nix
