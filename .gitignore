@@ -1,0 +1,39 @@
+# Arquivos de compilação
+bin/
+obj/
+
+# Arquivos de publicação
+publish/
+
+# Pacotes NuGet
+*.nupkg
+*.paket.*
+paket-files/
+
+# Arquivos de configuração
+*.config
+
+# Logs e arquivos temporários
+logs/
+temp/
+
+# Arquivos de compilação específicos da IDE
+*.suo
+*.user
+*.bak
+*.cache
+*.vs/
+.vscode/
+
+# Arquivos de análise de código
+*.sln.docstates
+
+# Arquivos gerados pela documentação
+Help/
+
+# Ferramentas e arquivos de build
+/_ReSharper*/
+/packages/
+.nuget/
+
+# Outros arquivos e diretórios específicos do seu projeto
