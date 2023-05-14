@@ -1,5 +1,4 @@
 using System;
-using System.Text;
 
 partial class Program
 {
@@ -25,5 +24,9 @@ partial class Program
         {
             Console.WriteLine($"Valor {i} : {valores[i]}");
         }
+
+        int[,] numeros = new int[2, 2];
+        string[] palavras = new string[5] { "André", "Jose", "Andressa", "Neia", "Sarah" };
+        double[] valoresDouble = { 2.6, 9.7, 7.5, 1.8 };
     }
 }
