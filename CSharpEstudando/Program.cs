@@ -2,6 +2,8 @@
 {
     static void Main(string[] args)
     {
+        //verificand se atualiza replit.com
+
         //CSharpArrays(); // terminar de implementar e testar o que falta
 
         CSharpCollection1(); // listas, sets, dicionarios, lista ligada, pilha/stack, fila/queue
