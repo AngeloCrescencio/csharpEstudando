@@ -1,21 +1,27 @@
 ﻿partial class Program {
 
+    #region fila_queue_variaveis
     // fila/queue
-    static Queue<string> pedagio = new Queue<string>();
+    //static Queue<string> pedagio = new Queue<string>();
+    #endregion
 
     static void CSharpCollection1()
     {
         Console.WriteLine("CSharpCollection1");
 
+        #region listas_list
         // listas
+        #endregion
 
-
+        #region conjuntos_set
         // sets
+        #endregion
 
-
+        #region dicionarios_dictionary
         // dicionarios
+        #endregion
 
-
+        #region lista_ligada_linkedlist
         // lista ligada - bom para lista grande onde insiro e removo elemento do meio da lista
         //nao precisa estar em ordem na memoria, pois cada elemento é um nó LinkedListNode, que sabe o nó anterior e posterior
         //
@@ -57,7 +63,9 @@
         Console.WriteLine("dias contem quinta? " + dias.Contains("quinta"));
         Console.WriteLine("dias .Any() " + dias.Any());
         */
+        #endregion
 
+        #region plinha_stack
         // pilha/stack LAST IN FIRST OUT
         /*
         var navegador = new Navegador();
@@ -72,46 +80,50 @@
         navegador.Anterior();
         navegador.Anterior();
         */
+        #endregion
 
+        #region fila_queue
         // fila/queue - FIRST IN FIRST OUT
         //static Queue<string> pedagio = new Queue<string>();
-
-        Enfileirar("VAN");
-        Enfileirar("KOMBI");
-        Enfileirar("GUINCHO");
-        Enfileirar("PICKUP");
-
-        Desenfileirar();
+        //Enfileirar("VAN");
+        //Enfileirar("KOMBI");
+        //Enfileirar("GUINCHO");
+        //Enfileirar("PICKUP");
+        //Desenfileirar();
+        #endregion
     }
 
-    private static void Desenfileirar() {
+    #region fila_queue_metodos
+    //private static void MostraFila()
+    //{
+    //    Console.WriteLine("Veiculos na fila: ");
+    //    foreach (var veiculo in pedagio)
+    //    {
+    //        Console.WriteLine(veiculo);
+    //    }
+    //}
 
-        if (!pedagio.Any()) // or pedagio.Count > 0
-        {
-            return;
-        }
-        Console.WriteLine($"Caixa recebendo de : {pedagio.Peek()}");
-        string veiculo = pedagio.Dequeue();
-        Console.WriteLine($"Saiu da file: {veiculo}");
-        MostraFila();
-    }
+    //private static void Desenfileirar() {
 
-    private static void Enfileirar(string veiculo) {
-        Console.WriteLine($"Adicionando {veiculo} na fila.");
-        pedagio.Enqueue(veiculo);
-        MostraFila();
-    }
+    //    if (!pedagio.Any()) // or pedagio.Count > 0
+    //    {
+    //        return;
+    //    }
+    //    Console.WriteLine($"Caixa recebendo de : {pedagio.Peek()}");
+    //    string veiculo = pedagio.Dequeue();
+    //    Console.WriteLine($"Saiu da file: {veiculo}");
+    //    MostraFila();
+    //}
 
-    private static void MostraFila()
-    {
-        Console.WriteLine("Veiculos na fila: ");
-        foreach (var veiculo in pedagio)
-        {
-            Console.WriteLine(veiculo);
-        }
-    }
+    //private static void Enfileirar(string veiculo) {
+    //    Console.WriteLine($"Adicionando {veiculo} na fila.");
+    //    pedagio.Enqueue(veiculo);
+    //    MostraFila();
+    //}
+    #endregion
 }
 
+#region plinha_stack_classe
 // pilha/stack
 /*
 internal class Navegador {
@@ -177,3 +189,4 @@ internal class Navegador {
     }
 }
 */
+#endregion
