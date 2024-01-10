@@ -2,25 +2,25 @@
 
     static void CSharpArrays()
     {
-        Console.WriteLine("CSharpArrays");
+        //Console.WriteLine("CSharpArrays");
 
         // >>>>> ver a diferença entre GetLength e Lenght e entre CopyTo e Clone, aprender e documentar com exemplos
 
         /*
         Propriedade/Método  Descrição
-        .Length	            retorna o número de elementos de um array.
-        .GetLength	        retorna o números de elementos do array.
-        .Rank	            retorna o número de dimensões de um array.
-        .SetValue           atribui valor a um elemento do array.
+        .Length	            retorna o número de elementos.
+        .GetLength	        retorna o números de elementos.
+        .Rank	            retorna o número de dimensões.
+        .SetValue           atribui valor a um elemento.
         .GetValue	        retorna o conteúdo/valor de um elemento pelo índice.
-        .Exists	            verifica se existe ou não um elemento no array.        
-        .IndexOf	        encontra a primeira ocorrência de um elemento no array.
-        .LastIndexOf	    encontra a última ocorrência de um elemento no array.
-        .Sort	            ordena os valores de um array de forma ascendente.
-        .Reverse	        inverte a ordem de elementos de um array.
-        .CopyTo	            cria uma cópia de todos os valores de um array.
-        .Clone	            cria uma cópia do array.
-        Clear	            limpa todas as posições de um array.
+        .Exists	            verifica se existe ou não um elemento.
+        .IndexOf	        encontra a primeira ocorrência de um elemento.
+        .LastIndexOf	    encontra a última ocorrência de um elemento.
+        .Sort	            ordena os valores de forma ascendente.
+        .Reverse	        inverte a ordem de elementos.
+        .CopyTo	            cria uma cópia de todos os valores.
+        .Clone	            cria uma cópia.
+        Clear	            limpa todas as posições.
         ConstrainedCopy     
         ConvertAll          
         */

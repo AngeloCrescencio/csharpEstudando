@@ -7,10 +7,68 @@
 
     static void CSharpCollection1()
     {
-        Console.WriteLine("CSharpCollection1");
+        //Console.WriteLine("CSharpCollection1");
 
         #region listas_list
         // listas
+
+        /*
+        Propriedade/Método  Descrição
+        .Add	            inclui um elemento.
+        .Count()	        retorna o números de elementos.
+        .First()	        retorna o primeiro elemento, opcionalmente pode aceitar uma expressao lambda como condicional que vai filtrar os elementos e retornar o primeiro.
+        .FirstOrDefault()	retorna o primeiro elemento ou o default se nao encontrar, opcionalmente pode aceitar uma expressao lambda como condicional que vai filtrar os elementos e retornar o primeiro.
+        .ForEach()          itera pelos itens, aceita uma action (metodo anonimo) que executa algo dentro dele para cada elemento da lista.
+        .GetRante()         obtem uma faixa de elementos.
+        .Last()	            retorna o ultimo elementos, opcionalmente pode aceitar uma expressao lambda como condicional que vai filtrar os elementos e retornar o ultimo..
+        .LastOrDefault()    retorna o ultimo elementos, ou o default se não encontrar, opcionalmente pode aceitar uma expressao lambda como condicional que vai filtrar os elementos e retornar o ultimo..
+        .Reverse()	        inverte a ordem de elementos.
+        .RemoveAt()         remove o elemento de uma posicao especifica.
+        .Sort()	            ordena os valores de forma ascendente.
+
+        clone               nao tem, mas da para fazer assim: List<string> clone = new(aulas); // new List<string>(aulas);
+        */
+
+        string AulaIntro = "Introducao as colecoes";
+        string AulaModelando = "Modelando a classe aula";
+        string AulaSets = "Trabalhando e conjuntos";
+
+        //List<String> Aulas = new List<String> {AulaIntro, AulaModelando, AulsSets};
+        List<String> aulas = new(); // new List<String>(); // new() - sempre posso usar o new desta forma para simplificar e nao ter que repetir o tipo;
+        //Aulas[0] = AulaIntro; // vazia, da erro
+        aulas.Add(AulaIntro);
+        aulas.Add(AulaModelando);
+        aulas.Add(AulaSets);
+
+        //ImprimirLista(Aulas);
+        Console.WriteLine($"A primeira aula e {aulas[0]}");
+        Console.WriteLine($"A primeira aula e {aulas.First()}");
+        Console.WriteLine($"A ultima aula e {aulas[aulas.Count()-1]}");
+        Console.WriteLine($"A ultima aula e {aulas.Last()}");
+
+        aulas[0] = "Trabalhando com listas";
+        Console.WriteLine("A primeira aula que contem Trabalhando : " + aulas.First(x => x.Contains("Trabalhando")));
+        Console.WriteLine("A ultima aula que contem Trabalhando : " + aulas.Last(x => x.Contains("Trabalhando")));
+        Console.WriteLine("A primeira aula que contem groselha : " + aulas.FirstOrDefault(x => x.Contains("groselha")));
+
+        aulas.Reverse();
+        ImprimirLista(aulas);
+        aulas.Reverse(); // reverse eh idempotente
+        ImprimirLista(aulas);
+
+        aulas.RemoveAt(aulas.Count-1);
+        ImprimirLista(aulas);
+
+        aulas.Add("Conclusao");
+        aulas.Sort();
+        ImprimirLista(aulas);
+
+        List<String> copia = aulas.GetRange(aulas.Count() -2, 2);
+        ImprimirLista(aulas, "imprimindo aulas");
+        ImprimirLista(copia, "imprimindo copia");
+
+        List<string> clone = new(aulas); // new List<string>(aulas); // new(aulas) - sempre posso usar o new desta forma para simplificar e nao ter que repetir o tipo;
+        ImprimirLista(clone, "imprimindo clone");
         #endregion
 
         #region conjuntos_set
@@ -92,6 +150,23 @@
         //Desenfileirar();
         #endregion
     }
+
+    #region listas_list_metodos
+    private static void ImprimirLista(List<String> aulas, String texto = "")
+    {
+
+        //foreach (var aula in aulas) { Console.WriteLine(aula); }
+
+        //for (int i = 0; i < aulas.Count; i++) { Console.WriteLine(Aulas[i]); };
+
+        if (texto != "") {
+            Console.WriteLine();
+            Console.WriteLine(texto);
+        }
+
+        aulas.ForEach(aula => Console.WriteLine(aula));
+    }
+    #endregion
 
     #region fila_queue_metodos
     //private static void MostraFila()
