@@ -1,4 +1,6 @@
-﻿partial class Program {
+﻿using System.Collections.ObjectModel;
+
+partial class Program {
 
     #region fila_queue_variaveis
     // fila/queue
@@ -72,23 +74,30 @@
         #endregion
 
         #region listas_list_object
-        var AulaIntro = new Aula("Introducao as colecoes", 20);
-        var AulaModelando = new Aula("Modelando a classe aula", 18);
-        var AulaSets = new Aula("Trabalhando e conjuntos", 16);
+        //var AulaIntro = new Aula("Introducao as colecoes", 20);
+        //var AulaModelando = new Aula("Modelando a classe aula", 18);
+        //var AulaSets = new Aula("Trabalhando e conjuntos", 16);
 
-        List<Aula> aulas = new List<Aula>();
+        //List<Aula> aulas = new List<Aula>();
 
-        aulas.Add(AulaIntro);
-        aulas.Add(AulaModelando);
-        aulas.Add(AulaSets);
+        //aulas.Add(AulaIntro);
+        //aulas.Add(AulaModelando);
+        //aulas.Add(AulaSets);
 
-        ImprimirListaObject(aulas);
+        //ImprimirListaObject(aulas);
 
-        aulas.Sort();
-        ImprimirListaObject(aulas);
+        //aulas.Sort();
+        //ImprimirListaObject(aulas);
 
-        aulas.Sort((aula1, aula2) => aula1.Tempo.CompareTo(aula2.Tempo)); // passando um comparison como parametro posso mudar a ordenacao
-        ImprimirListaObject(aulas);
+        //aulas.Sort((aula1, aula2) => aula1.Tempo.CompareTo(aula2.Tempo)); // passando um comparison como parametro posso mudar a ordenacao
+        //ImprimirListaObject(aulas);
+        #endregion
+
+        #region listas_list_somente_leitura
+        Curso csharpColecoes = new("Csharp collections", "Marcelo Oliveira"); // new Curso("Csharp collections", "Marcelo Oliveira");
+
+        csharpColecoes.Adiciona(new Aula("Trabalhando com listas", 21)); // code smell
+        ImprimirListaObject(csharpColecoes.Aulas); // code smell
         #endregion
 
         #region conjuntos_set
@@ -173,7 +182,21 @@
 
 
     #region listas_list_object_metodos
-    private static void ImprimirListaObject(List<Aula> aulas, String texto = "")
+    //private static void ImprimirListaObject(List<Aula> aulas, String texto = "")
+    //{
+    //    if (texto != "") {
+    //        Console.WriteLine();
+    //        Console.WriteLine(texto);
+    //    }
+
+    //    foreach (var aula in aulas) {
+    //        Console.WriteLine(aula);
+    //    }
+    //}
+    #endregion
+
+    #region listas_list_somente_leitura_metodos
+    private static void ImprimirListaObject(IList<Aula> aulas, String texto = "") // como a lista protegida retorna um IList, este metodo precisa receber IList
     {
         if (texto != "") {
             Console.WriteLine();
@@ -321,6 +344,43 @@ class Aula : IComparable
 
     public override string ToString() {
         return $"[titulo: {titulo} , tempo: {tempo} minutos]";
+    }
+}
+#endregion
+
+#region listas_list_somente_leitura_classes
+//descomentar listas_list_object_classes
+class Curso
+{
+    //propfull
+    private string nome;
+    private string instrutor;
+    private IList<Aula> aulas;
+
+    public Curso(string nome, string instrutor) {
+        this.nome = nome;
+        this.instrutor = instrutor;
+        this.aulas = new List<Aula>();
+    }
+
+    public string Nome {
+        get { return nome; }
+        set { nome = value; }
+    }
+    public string Instrutor {
+        get { return instrutor; }
+        set { instrutor = value; }
+    }
+
+    //public List<Aula> Aulas { // o ReadOnlyCollection implementa um IList, entao tem que mudar o tipo da propriedade Aulas
+    public IList<Aula> Aulas {
+        //get { return aulas; } // code smell
+        get { return new ReadOnlyCollection<Aula>(aulas); } // o ReadOnlyCollection implementa um IList, entao tem que mudar o tipo da propriedade Aulas
+        //set { aulas = value; } // code smell
+    }
+
+    internal void Adiciona(Aula aula) {
+        this.aulas.Add(aula);
     }
 }
 #endregion
