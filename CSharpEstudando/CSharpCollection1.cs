@@ -19,7 +19,7 @@
         .First()	        retorna o primeiro elemento, opcionalmente pode aceitar uma expressao lambda como condicional que vai filtrar os elementos e retornar o primeiro.
         .FirstOrDefault()	retorna o primeiro elemento ou o default se nao encontrar, opcionalmente pode aceitar uma expressao lambda como condicional que vai filtrar os elementos e retornar o primeiro.
         .ForEach()          itera pelos itens, aceita uma action (metodo anonimo) que executa algo dentro dele para cada elemento da lista.
-        .GetRante()         obtem uma faixa de elementos.
+        .GetRange()         obtem uma faixa de elementos.
         .Last()	            retorna o ultimo elementos, opcionalmente pode aceitar uma expressao lambda como condicional que vai filtrar os elementos e retornar o ultimo..
         .LastOrDefault()    retorna o ultimo elementos, ou o default se não encontrar, opcionalmente pode aceitar uma expressao lambda como condicional que vai filtrar os elementos e retornar o ultimo..
         .Reverse()	        inverte a ordem de elementos.
@@ -29,46 +29,66 @@
         clone               nao tem, mas da para fazer assim: List<string> clone = new(aulas); // new List<string>(aulas);
         */
 
-        string AulaIntro = "Introducao as colecoes";
-        string AulaModelando = "Modelando a classe aula";
-        string AulaSets = "Trabalhando e conjuntos";
+        //string AulaIntro = "Introducao as colecoes";
+        //string AulaModelando = "Modelando a classe aula";
+        //string AulaSets = "Trabalhando e conjuntos";
 
-        //List<String> Aulas = new List<String> {AulaIntro, AulaModelando, AulsSets};
-        List<String> aulas = new(); // new List<String>(); // new() - sempre posso usar o new desta forma para simplificar e nao ter que repetir o tipo;
-        //Aulas[0] = AulaIntro; // vazia, da erro
+        ////List<String> Aulas = new List<String> {AulaIntro, AulaModelando, AulsSets};
+        //List<String> aulas = new(); // new List<String>(); // new() - sempre posso usar o new desta forma para simplificar e nao ter que repetir o tipo;
+        ////Aulas[0] = AulaIntro; // vazia, da erro
+        //aulas.Add(AulaIntro);
+        //aulas.Add(AulaModelando);
+        //aulas.Add(AulaSets);
+
+        ////ImprimirLista(Aulas);
+        //Console.WriteLine($"A primeira aula e {aulas[0]}");
+        //Console.WriteLine($"A primeira aula e {aulas.First()}");
+        //Console.WriteLine($"A ultima aula e {aulas[aulas.Count()-1]}");
+        //Console.WriteLine($"A ultima aula e {aulas.Last()}");
+
+        //aulas[0] = "Trabalhando com listas";
+        //Console.WriteLine("A primeira aula que contem Trabalhando : " + aulas.First(x => x.Contains("Trabalhando")));
+        //Console.WriteLine("A ultima aula que contem Trabalhando : " + aulas.Last(x => x.Contains("Trabalhando")));
+        //Console.WriteLine("A primeira aula que contem groselha : " + aulas.FirstOrDefault(x => x.Contains("groselha")));
+
+        //aulas.Reverse();
+        //ImprimirLista(aulas);
+        //aulas.Reverse(); // reverse eh idempotente
+        //ImprimirLista(aulas);
+
+        //aulas.RemoveAt(aulas.Count-1);
+        //ImprimirLista(aulas);
+
+        //aulas.Add("Conclusao");
+        //aulas.Sort();
+        //ImprimirLista(aulas);
+
+        //List<String> copia = aulas.GetRange(aulas.Count() -2, 2);
+        //ImprimirLista(aulas, "imprimindo aulas");
+        //ImprimirLista(copia, "imprimindo copia");
+
+        //List<string> clone = new(aulas); // new List<string>(aulas); // new(aulas) - sempre posso usar o new desta forma para simplificar e nao ter que repetir o tipo;
+        //ImprimirLista(clone, "imprimindo clone");
+        #endregion
+
+        #region listas_list_object
+        var AulaIntro = new Aula("Introducao as colecoes", 20);
+        var AulaModelando = new Aula("Modelando a classe aula", 18);
+        var AulaSets = new Aula("Trabalhando e conjuntos", 16);
+
+        List<Aula> aulas = new List<Aula>();
+
         aulas.Add(AulaIntro);
         aulas.Add(AulaModelando);
         aulas.Add(AulaSets);
 
-        //ImprimirLista(Aulas);
-        Console.WriteLine($"A primeira aula e {aulas[0]}");
-        Console.WriteLine($"A primeira aula e {aulas.First()}");
-        Console.WriteLine($"A ultima aula e {aulas[aulas.Count()-1]}");
-        Console.WriteLine($"A ultima aula e {aulas.Last()}");
+        ImprimirListaObject(aulas);
 
-        aulas[0] = "Trabalhando com listas";
-        Console.WriteLine("A primeira aula que contem Trabalhando : " + aulas.First(x => x.Contains("Trabalhando")));
-        Console.WriteLine("A ultima aula que contem Trabalhando : " + aulas.Last(x => x.Contains("Trabalhando")));
-        Console.WriteLine("A primeira aula que contem groselha : " + aulas.FirstOrDefault(x => x.Contains("groselha")));
-
-        aulas.Reverse();
-        ImprimirLista(aulas);
-        aulas.Reverse(); // reverse eh idempotente
-        ImprimirLista(aulas);
-
-        aulas.RemoveAt(aulas.Count-1);
-        ImprimirLista(aulas);
-
-        aulas.Add("Conclusao");
         aulas.Sort();
-        ImprimirLista(aulas);
+        ImprimirListaObject(aulas);
 
-        List<String> copia = aulas.GetRange(aulas.Count() -2, 2);
-        ImprimirLista(aulas, "imprimindo aulas");
-        ImprimirLista(copia, "imprimindo copia");
-
-        List<string> clone = new(aulas); // new List<string>(aulas); // new(aulas) - sempre posso usar o new desta forma para simplificar e nao ter que repetir o tipo;
-        ImprimirLista(clone, "imprimindo clone");
+        aulas.Sort((aula1, aula2) => aula1.Tempo.CompareTo(aula2.Tempo)); // passando um comparison como parametro posso mudar a ordenacao
+        ImprimirListaObject(aulas);
         #endregion
 
         #region conjuntos_set
@@ -151,21 +171,35 @@
         #endregion
     }
 
-    #region listas_list_metodos
-    private static void ImprimirLista(List<String> aulas, String texto = "")
+
+    #region listas_list_object_metodos
+    private static void ImprimirListaObject(List<Aula> aulas, String texto = "")
     {
-
-        //foreach (var aula in aulas) { Console.WriteLine(aula); }
-
-        //for (int i = 0; i < aulas.Count; i++) { Console.WriteLine(Aulas[i]); };
-
         if (texto != "") {
             Console.WriteLine();
             Console.WriteLine(texto);
         }
 
-        aulas.ForEach(aula => Console.WriteLine(aula));
+        foreach (var aula in aulas) {
+            Console.WriteLine(aula);
+        }
     }
+    #endregion
+
+    #region listas_list_metodos
+    //private static void ImprimirLista(List<String> aulas, String texto = "")
+    //{
+    //    if (texto != "") {
+    //        Console.WriteLine();
+    //        Console.WriteLine(texto);
+    //    }
+
+    //    //foreach (var aula in aulas) { Console.WriteLine(aula); }
+
+    //    //for (int i = 0; i < aulas.Count; i++) { Console.WriteLine(Aulas[i]); };
+
+    //    aulas.ForEach(aula => Console.WriteLine(aula));
+    //}
     #endregion
 
     #region fila_queue_metodos
@@ -264,4 +298,29 @@ internal class Navegador {
     }
 }
 */
+#endregion
+
+#region listas_list_object_classes
+class Aula : IComparable
+{
+    private string titulo;
+    private int tempo;
+
+    public Aula(string titulo, int tempo) {
+        this.titulo = titulo;
+        this.tempo = tempo;
+    }
+
+    public string Titulo { get => titulo; set => titulo = value; }
+    public int Tempo { get => tempo; set => tempo = value; }
+
+    public int CompareTo(object? aula) {
+        var outraAula = aula as Aula;
+        return this.titulo.CompareTo(outraAula.titulo);
+    }
+
+    public override string ToString() {
+        return $"[titulo: {titulo} , tempo: {tempo} minutos]";
+    }
+}
 #endregion
