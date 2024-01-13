@@ -97,7 +97,24 @@ partial class Program {
         Curso csharpColecoes = new("Csharp collections", "Marcelo Oliveira"); // new Curso("Csharp collections", "Marcelo Oliveira");
 
         csharpColecoes.Adiciona(new Aula("Trabalhando com listas", 21)); // code smell
-        ImprimirListaObject(csharpColecoes.Aulas); // code smell
+        csharpColecoes.Adiciona(new Aula("Criando uma aula", 20)); // code smell
+        csharpColecoes.Adiciona(new Aula("Modelando colecoes", 19)); // code smell
+
+        //ordenar lista de aulas
+        //csharpColecoes.Aulas.Sort(); // Aulas é uma lista projegida do tipo IList, e nao da suporte ao metodo .Sort()
+        //copiar a lista para outra lista que permita modificacao
+        List<Aula> aulasCopia = new List<Aula>(csharpColecoes.Aulas);
+        aulasCopia.Sort();
+        ImprimirListaObject(aulasCopia); // code smell
+
+        //totalizar o tempo do curso
+        Console.WriteLine("");
+        Console.WriteLine($"Tempo total do curso: {csharpColecoes.TempoTotal}");
+
+        //imprimir detalhes do curso
+        Console.WriteLine("");
+        Console.WriteLine(csharpColecoes);
+
         #endregion
 
         #region conjuntos_set
@@ -355,7 +372,7 @@ class Curso
     //propfull
     private string nome;
     private string instrutor;
-    private IList<Aula> aulas;
+    private IList<Aula> aulas; // IList nao da suporte ao metodo sort
 
     public Curso(string nome, string instrutor) {
         this.nome = nome;
@@ -379,8 +396,19 @@ class Curso
         //set { aulas = value; } // code smell
     }
 
-    internal void Adiciona(Aula aula) {
+    public void Adiciona(Aula aula) {
         this.aulas.Add(aula);
+    }
+
+    public int TempoTotal
+    {
+        get {
+            return this.aulas.Sum(aula => aula.Tempo);
+        }
+    }
+
+    public override string ToString() {
+        return $"Curso: {nome}, Tempo: {TempoTotal}, Aulas: {string.Join(",", aulas)}";
     }
 }
 #endregion
