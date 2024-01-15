@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 
 partial class Program {
 
@@ -94,31 +95,49 @@ partial class Program {
         #endregion
 
         #region listas_list_somente_leitura
-        Curso csharpColecoes = new("Csharp collections", "Marcelo Oliveira"); // new Curso("Csharp collections", "Marcelo Oliveira");
+        //Curso csharpColecoes = new("Csharp collections", "Marcelo Oliveira"); // new Curso("Csharp collections", "Marcelo Oliveira");
 
-        csharpColecoes.Adiciona(new Aula("Trabalhando com listas", 21)); // code smell
-        csharpColecoes.Adiciona(new Aula("Criando uma aula", 20)); // code smell
-        csharpColecoes.Adiciona(new Aula("Modelando colecoes", 19)); // code smell
+        //csharpColecoes.Adiciona(new Aula("Trabalhando com listas", 21));
+        //csharpColecoes.Adiciona(new Aula("Criando uma aula", 20));
+        //csharpColecoes.Adiciona(new Aula("Modelando colecoes", 19));
 
-        //ordenar lista de aulas
-        //csharpColecoes.Aulas.Sort(); // Aulas é uma lista projegida do tipo IList, e nao da suporte ao metodo .Sort()
-        //copiar a lista para outra lista que permita modificacao
-        List<Aula> aulasCopia = new List<Aula>(csharpColecoes.Aulas);
-        aulasCopia.Sort();
-        ImprimirListaObject(aulasCopia); // code smell
+        ////ordenar lista de aulas
+        ////csharpColecoes.Aulas.Sort(); // Aulas é uma lista projegida (ReadOnlyCollection) do tipo IList, e nao da suporte ao metodo .Sort()
+        ////copiar a lista para outra lista que permita modificacao
+        ////List<Aula> aulasCopia = new(csharpColecoes.Aulas); // new List<Aula>(csharpColecoes.Aulas);
+        //var aulasCopia = new List<Aula>(csharpColecoes.Aulas);
+        //aulasCopia.Sort();
+        //ImprimirListaObject(aulasCopia); // code smell
 
-        //totalizar o tempo do curso
-        Console.WriteLine("");
-        Console.WriteLine($"Tempo total do curso: {csharpColecoes.TempoTotal}");
+        ////totalizar o tempo do curso
+        //Console.WriteLine("");
+        //Console.WriteLine($"Tempo total do curso: {csharpColecoes.TempoTotal}");
 
-        //imprimir detalhes do curso
-        Console.WriteLine("");
-        Console.WriteLine(csharpColecoes);
+        ////imprimir detalhes do curso
+        //Console.WriteLine("");
+        //Console.WriteLine(csharpColecoes);
 
         #endregion
 
         #region conjuntos_set
-        // sets
+        //sets = conjuntos
+        //nao permite duplicidade
+        //elementos nao tem ordenacao
+        //conjunto eh mais rapido para buscar elementos, ver no stack overflow hashset vs list performance - utiliza tabela de espalhamento, então ocupa mais memoria
+        ISet<string> alunos = new HashSet<string>();
+        alunos.Add("Vanessa");
+        alunos.Add("Ana");
+        alunos.Add("Rafael");
+        alunos.Add("Priscila");
+        alunos.Add("Rafael"); // nao vai inserir, nao permite duplicidade
+        alunos.Add("Fabio");
+        alunos.Remove("Ana");
+        alunos.Add("Willian");
+        Console.WriteLine(string.Join(",", alunos));
+        //alunos.Sort(); // ISet nao implementa Sort()
+        List<string> alunosEmLista = new(alunos);
+        alunosEmLista.Sort();
+        Console.WriteLine(String.Join(",", alunosEmLista));
         #endregion
 
         #region dicionarios_dictionary
@@ -213,17 +232,17 @@ partial class Program {
     #endregion
 
     #region listas_list_somente_leitura_metodos
-    private static void ImprimirListaObject(IList<Aula> aulas, String texto = "") // como a lista protegida retorna um IList, este metodo precisa receber IList
-    {
-        if (texto != "") {
-            Console.WriteLine();
-            Console.WriteLine(texto);
-        }
+    //private static void ImprimirListaObject(IList<Aula> aulas, String texto = "") // como a lista protegida retorna um IList, este metodo precisa receber IList
+    //{
+    //    if (texto != "") {
+    //        Console.WriteLine();
+    //        Console.WriteLine(texto);
+    //    }
 
-        foreach (var aula in aulas) {
-            Console.WriteLine(aula);
-        }
-    }
+    //    foreach (var aula in aulas) {
+    //        Console.WriteLine(aula);
+    //    }
+    //}
     #endregion
 
     #region listas_list_metodos
@@ -341,74 +360,74 @@ internal class Navegador {
 #endregion
 
 #region listas_list_object_classes
-class Aula : IComparable
-{
-    private string titulo;
-    private int tempo;
+//class Aula : IComparable
+//{
+//    private string titulo;
+//    private int tempo;
 
-    public Aula(string titulo, int tempo) {
-        this.titulo = titulo;
-        this.tempo = tempo;
-    }
+//    public Aula(string titulo, int tempo) {
+//        this.titulo = titulo;
+//        this.tempo = tempo;
+//    }
 
-    public string Titulo { get => titulo; set => titulo = value; }
-    public int Tempo { get => tempo; set => tempo = value; }
+//    public string Titulo { get => titulo; set => titulo = value; }
+//    public int Tempo { get => tempo; set => tempo = value; }
 
-    public int CompareTo(object? aula) {
-        var outraAula = aula as Aula;
-        return this.titulo.CompareTo(outraAula.titulo);
-    }
+//    public int CompareTo(object? aula) {
+//        var outraAula = aula as Aula;
+//        return this.titulo.CompareTo(outraAula.titulo);
+//    }
 
-    public override string ToString() {
-        return $"[titulo: {titulo} , tempo: {tempo} minutos]";
-    }
-}
+//    public override string ToString() {
+//        return $"[titulo: {titulo} , tempo: {tempo} minutos]";
+//    }
+//}
 #endregion
 
 #region listas_list_somente_leitura_classes
 //descomentar listas_list_object_classes
-class Curso
-{
-    //propfull
-    private string nome;
-    private string instrutor;
-    private IList<Aula> aulas; // IList nao da suporte ao metodo sort
+//class Curso
+//{
+//    //propfull
+//    private string nome;
+//    private string instrutor;
+//    private IList<Aula> aulas; // IList nao da suporte ao metodo sort
 
-    public Curso(string nome, string instrutor) {
-        this.nome = nome;
-        this.instrutor = instrutor;
-        this.aulas = new List<Aula>();
-    }
+//    public Curso(string nome, string instrutor) {
+//        this.nome = nome;
+//        this.instrutor = instrutor;
+//        this.aulas = new List<Aula>();
+//    }
 
-    public string Nome {
-        get { return nome; }
-        set { nome = value; }
-    }
-    public string Instrutor {
-        get { return instrutor; }
-        set { instrutor = value; }
-    }
+//    public string Nome {
+//        get { return nome; }
+//        set { nome = value; }
+//    }
+//    public string Instrutor {
+//        get { return instrutor; }
+//        set { instrutor = value; }
+//    }
 
-    //public List<Aula> Aulas { // o ReadOnlyCollection implementa um IList, entao tem que mudar o tipo da propriedade Aulas
-    public IList<Aula> Aulas {
-        //get { return aulas; } // code smell
-        get { return new ReadOnlyCollection<Aula>(aulas); } // o ReadOnlyCollection implementa um IList, entao tem que mudar o tipo da propriedade Aulas
-        //set { aulas = value; } // code smell
-    }
+//    //public List<Aula> Aulas { // o ReadOnlyCollection implementa um IList, entao tem que mudar o tipo da propriedade Aulas
+//    public IList<Aula> Aulas {
+//        //get { return aulas; } // code smell
+//        get { return new ReadOnlyCollection<Aula>(aulas); } // o ReadOnlyCollection implementa um IList, entao tem que mudar o tipo da propriedade Aulas
+//        //set { aulas = value; } // code smell
+//    }
 
-    public void Adiciona(Aula aula) {
-        this.aulas.Add(aula);
-    }
+//    public void Adiciona(Aula aula) {
+//        this.aulas.Add(aula);
+//    }
 
-    public int TempoTotal
-    {
-        get {
-            return this.aulas.Sum(aula => aula.Tempo);
-        }
-    }
+//    public int TempoTotal
+//    {
+//        get {
+//            return this.aulas.Sum(aula => aula.Tempo);
+//        }
+//    }
 
-    public override string ToString() {
-        return $"Curso: {nome}, Tempo: {TempoTotal}, Aulas: {string.Join(",", aulas)}";
-    }
-}
+//    public override string ToString() {
+//        return $"Curso: {nome}, Tempo: {TempoTotal}, Aulas: {string.Join(",", aulas)}";
+//    }
+//}
 #endregion
