@@ -1,4 +1,6 @@
-﻿using System.Collections.Immutable;
+﻿using CSharpEstudando;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 
 partial class Program {
@@ -124,20 +126,40 @@ partial class Program {
         //nao permite duplicidade
         //elementos nao tem ordenacao
         //conjunto eh mais rapido para buscar elementos, ver no stack overflow hashset vs list performance - utiliza tabela de espalhamento, então ocupa mais memoria
-        ISet<string> alunos = new HashSet<string>();
-        alunos.Add("Vanessa");
-        alunos.Add("Ana");
-        alunos.Add("Rafael");
-        alunos.Add("Priscila");
-        alunos.Add("Rafael"); // nao vai inserir, nao permite duplicidade
-        alunos.Add("Fabio");
-        alunos.Remove("Ana");
-        alunos.Add("Willian");
-        Console.WriteLine(string.Join(",", alunos));
-        //alunos.Sort(); // ISet nao implementa Sort()
-        List<string> alunosEmLista = new(alunos);
-        alunosEmLista.Sort();
-        Console.WriteLine(String.Join(",", alunosEmLista));
+        #region conjuntos_set_introducao_basica
+        //ISet<string> alunos = new HashSet<string>();
+        //alunos.Add("Vanessa");
+        //alunos.Add("Ana");
+        //alunos.Add("Rafael");
+        //alunos.Add("Priscila");
+        //alunos.Add("Rafael"); // nao vai inserir, nao permite duplicidade
+        //alunos.Add("Fabio");
+        //alunos.Remove("Ana");
+        //alunos.Add("Willian");
+        //Console.WriteLine(string.Join(",", alunos));
+        ////alunos.Sort(); // ISet nao implementa Sort()
+        //List<string> alunosEmLista = new(alunos);
+        //alunosEmLista.Sort();
+        //Console.WriteLine(String.Join(",", alunosEmLista));
+        #endregion
+        #region conjuntos_set_com_modelo_cursos
+        Curso csharpColecoes = new Curso("Csharp colecoes", "Marcelo Oliveira");
+
+        csharpColecoes.Adiciona(new Aula("Trabalhand com lista" ,21));
+        csharpColecoes.Adiciona(new Aula("Criando uma aula" ,20));
+        csharpColecoes.Adiciona(new Aula("Modelando com colecoes" ,24));
+
+        Aluno a1 = new Aluno("Vanessa", 34672);
+        Aluno a2 = new Aluno("Ana", 5617);
+        Aluno a3 = new Aluno("Rafael", 17645);
+
+        csharpColecoes.Matricula(a1);
+        csharpColecoes.Matricula(a2);
+        csharpColecoes.Matricula(a3);
+
+        ImprimirListaObjectGenerico<IList<Aluno>, Aluno>(csharpColecoes.Alunos, "Imprimindo os alunos matriculados");
+
+        #endregion
         #endregion
 
         #region dicionarios_dictionary
@@ -218,8 +240,7 @@ partial class Program {
 
 
     #region listas_list_object_metodos
-    //private static void ImprimirListaObject(List<Aula> aulas, String texto = "")
-    //{
+    //private static void ImprimirListaObject(List<Aula> aulas, String texto = "") {
     //    if (texto != "") {
     //        Console.WriteLine();
     //        Console.WriteLine(texto);
@@ -243,6 +264,23 @@ partial class Program {
     //        Console.WriteLine(aula);
     //    }
     //}
+    #endregion
+
+    #region conjuntos_set_com_modelo_cursos_metodos
+    public static void ImprimirListaObjectGenerico<T1, T2>(T1 lista, String texto = "") where T1 : IEnumerable<T2>
+    {
+        if (texto != "")
+        {
+            Console.WriteLine();
+            Console.WriteLine(texto);
+        }
+
+        foreach (var item in lista)
+        {
+            Console.WriteLine(item);
+        }
+    }
+
     #endregion
 
     #region listas_list_metodos
@@ -289,7 +327,7 @@ partial class Program {
     //    MostraFila();
     //}
     #endregion
-}
+    }
 
 #region plinha_stack_classe
 // pilha/stack
@@ -360,74 +398,90 @@ internal class Navegador {
 #endregion
 
 #region listas_list_object_classes
-//class Aula : IComparable
-//{
-//    private string titulo;
-//    private int tempo;
+class Aula : IComparable {
+    private string titulo;
+    private int tempo;
 
-//    public Aula(string titulo, int tempo) {
-//        this.titulo = titulo;
-//        this.tempo = tempo;
-//    }
+    public Aula(string titulo, int tempo) {
+        this.titulo = titulo;
+        this.tempo = tempo;
+    }
 
-//    public string Titulo { get => titulo; set => titulo = value; }
-//    public int Tempo { get => tempo; set => tempo = value; }
+    public string Titulo { get => titulo; set => titulo = value; }
+    public int Tempo { get => tempo; set => tempo = value; }
 
-//    public int CompareTo(object? aula) {
-//        var outraAula = aula as Aula;
-//        return this.titulo.CompareTo(outraAula.titulo);
-//    }
+    public int CompareTo(object? aula) {
+        var outraAula = aula as Aula;
+        return this.titulo.CompareTo(outraAula.titulo);
+    }
 
-//    public override string ToString() {
-//        return $"[titulo: {titulo} , tempo: {tempo} minutos]";
-//    }
-//}
+    public override string ToString() {
+        return $"[titulo: {titulo} , tempo: {tempo} minutos]";
+    }
+}
 #endregion
 
 #region listas_list_somente_leitura_classes
 //descomentar listas_list_object_classes
-//class Curso
-//{
-//    //propfull
-//    private string nome;
-//    private string instrutor;
-//    private IList<Aula> aulas; // IList nao da suporte ao metodo sort
+class Curso
+{
 
-//    public Curso(string nome, string instrutor) {
-//        this.nome = nome;
-//        this.instrutor = instrutor;
-//        this.aulas = new List<Aula>();
-//    }
+    //propfull
+    private string nome;
+    private string instrutor;
+    private IList<Aula> aulas; // IList nao da suporte ao metodo sort
 
-//    public string Nome {
-//        get { return nome; }
-//        set { nome = value; }
-//    }
-//    public string Instrutor {
-//        get { return instrutor; }
-//        set { instrutor = value; }
-//    }
+    //aluno deve ser um ISet. Aluno deve retornar um ReadOnlyCollection
+    private ISet<Aluno> alunos = new HashSet<Aluno>();
+    public IList<Aluno> Alunos
+    {
+        get {
+            //return new ReadOnlyCollection<Aluno>(alunos); // nao funciona, Iset nao pode ser convertido em IList, só lista pode, entao fazer como abaixo
+            return new ReadOnlyCollection<Aluno>(alunos.ToList());
+        }
+    }
 
-//    //public List<Aula> Aulas { // o ReadOnlyCollection implementa um IList, entao tem que mudar o tipo da propriedade Aulas
-//    public IList<Aula> Aulas {
-//        //get { return aulas; } // code smell
-//        get { return new ReadOnlyCollection<Aula>(aulas); } // o ReadOnlyCollection implementa um IList, entao tem que mudar o tipo da propriedade Aulas
-//        //set { aulas = value; } // code smell
-//    }
+    public Curso(string nome, string instrutor) {
+        this.nome = nome;
+        this.instrutor = instrutor;
+        this.aulas = new List<Aula>();
+    }
 
-//    public void Adiciona(Aula aula) {
-//        this.aulas.Add(aula);
-//    }
+    public string Nome {
+        get { return nome; }
+        set { nome = value; }
+    }
+    public string Instrutor {
+        get { return instrutor; }
+        set { instrutor = value; }
+    }
 
-//    public int TempoTotal
-//    {
-//        get {
-//            return this.aulas.Sum(aula => aula.Tempo);
-//        }
-//    }
+    //public List<Aula> Aulas { // o ReadOnlyCollection implementa um IList, entao tem que mudar o tipo da propriedade Aulas
+    public IList<Aula> Aulas {
+        //get { return aulas; } // code smell
+        get { return new ReadOnlyCollection<Aula>(aulas); } // o ReadOnlyCollection implementa um IList, entao tem que mudar o tipo da propriedade Aulas
+        //set { aulas = value; } // code smell
+    }
 
-//    public override string ToString() {
-//        return $"Curso: {nome}, Tempo: {TempoTotal}, Aulas: {string.Join(",", aulas)}";
-//    }
-//}
+    public void Adiciona(Aula aula) {
+        this.aulas.Add(aula);
+    }
+
+    public int TempoTotal {
+        get {
+            return this.aulas.Sum(aula => aula.Tempo);
+        }
+    }
+
+    public override string ToString() {
+        return $"Curso: {nome}, Tempo: {TempoTotal}, Aulas: {string.Join(",", aulas)}";
+    }
+    internal void Matricula(Aluno aluno) {
+        alunos.Add(aluno);
+    }
+}
+#endregion
+
+#region conjuntos_set_classes
+//descomentar listas_list_somente_leitura_classes
 #endregion
