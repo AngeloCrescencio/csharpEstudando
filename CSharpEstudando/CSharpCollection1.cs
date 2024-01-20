@@ -152,12 +152,22 @@ partial class Program {
         Aluno a1 = new Aluno("Vanessa", 34672);
         Aluno a2 = new Aluno("Ana", 5617);
         Aluno a3 = new Aluno("Rafael", 17645);
-
+        Aluno a4 = new Aluno("Vanessa", 34672);
+         
         csharpColecoes.Matricula(a1);
         csharpColecoes.Matricula(a2);
         csharpColecoes.Matricula(a3);
 
         ImprimirListaObjectGenerico<IList<Aluno>, Aluno>(csharpColecoes.Alunos, "Imprimindo os alunos matriculados");
+
+        Console.WriteLine($"O aluno a1 {a1.Nome} está matriculado? {csharpColecoes.EstaMatriculado(a1)}");
+        Console.WriteLine($"O aluno a4 {a4.Nome} está matriculado? {csharpColecoes.EstaMatriculado(a4)}");
+
+        Console.WriteLine("a1 == a4?");
+        Console.WriteLine(a1 == a4);
+
+        Console.WriteLine("a1 Equals a4?");
+        Console.WriteLine(a1.Equals(a4));
 
         #endregion
         #endregion
@@ -410,7 +420,8 @@ class Aula : IComparable {
     public string Titulo { get => titulo; set => titulo = value; }
     public int Tempo { get => tempo; set => tempo = value; }
 
-    public int CompareTo(object? aula) {
+    public int CompareTo(object? aula)
+    {
         var outraAula = aula as Aula;
         return this.titulo.CompareTo(outraAula.titulo);
     }
@@ -478,6 +489,12 @@ class Curso
     }
     internal void Matricula(Aluno aluno) {
         alunos.Add(aluno);
+    }
+
+    public bool EstaMatriculado(Aluno aluno)
+    {
+        var estaMatriculado = alunos.Contains(aluno);
+        return estaMatriculado;
     }
 }
 #endregion

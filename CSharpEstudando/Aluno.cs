@@ -30,5 +30,18 @@ namespace CSharpEstudando
             return $"Nome: {Nome}, Matricula: {NumeroMatricula}";
         }
 
+        public override bool Equals(object? aluno)
+        {
+            Aluno? outroAluno = aluno as Aluno;
+
+            if (outroAluno is null) return false;
+
+            return this.nome.Equals(outroAluno.nome);
+        }
+
+        public override int GetHashCode() {
+            return this.nome.GetHashCode();
+        }
+
     }
 }
