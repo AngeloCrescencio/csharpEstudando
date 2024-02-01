@@ -143,37 +143,60 @@ partial class Program {
         //Console.WriteLine(String.Join(",", alunosEmLista));
         #endregion
         #region conjuntos_set_com_modelo_cursos
-        Curso csharpColecoes = new Curso("Csharp colecoes", "Marcelo Oliveira");
+        //Curso csharpColecoes = new Curso("Csharp colecoes", "Marcelo Oliveira");
 
-        csharpColecoes.Adiciona(new Aula("Trabalhand com lista" ,21));
-        csharpColecoes.Adiciona(new Aula("Criando uma aula" ,20));
-        csharpColecoes.Adiciona(new Aula("Modelando com colecoes" ,24));
+        //csharpColecoes.Adiciona(new Aula("Trabalhand com lista" ,21));
+        //csharpColecoes.Adiciona(new Aula("Criando uma aula" ,20));
+        //csharpColecoes.Adiciona(new Aula("Modelando com colecoes" ,24));
 
-        Aluno a1 = new Aluno("Vanessa", 34672);
-        Aluno a2 = new Aluno("Ana", 5617);
-        Aluno a3 = new Aluno("Rafael", 17645);
-        Aluno a4 = new Aluno("Vanessa", 34672);
-         
-        csharpColecoes.Matricula(a1);
-        csharpColecoes.Matricula(a2);
-        csharpColecoes.Matricula(a3);
+        //Aluno a1 = new Aluno("Vanessa", 34672);
+        //Aluno a2 = new Aluno("Ana", 5617);
+        //Aluno a3 = new Aluno("Rafael", 17645);
+        //Aluno a4 = new Aluno("Vanessa", 34672);
 
-        ImprimirListaObjectGenerico<IList<Aluno>, Aluno>(csharpColecoes.Alunos, "Imprimindo os alunos matriculados");
+        //csharpColecoes.Matricula(a1);
+        //csharpColecoes.Matricula(a2);
+        //csharpColecoes.Matricula(a3);
 
-        Console.WriteLine($"O aluno a1 {a1.Nome} está matriculado? {csharpColecoes.EstaMatriculado(a1)}");
-        Console.WriteLine($"O aluno a4 {a4.Nome} está matriculado? {csharpColecoes.EstaMatriculado(a4)}");
+        //ImprimirListaObjectGenerico<IList<Aluno>, Aluno>(csharpColecoes.Alunos, "Imprimindo os alunos matriculados");
 
-        Console.WriteLine("a1 == a4?");
-        Console.WriteLine(a1 == a4);
+        //Console.WriteLine($"O aluno a1 {a1.Nome} está matriculado? {csharpColecoes.EstaMatriculado(a1)}");
+        //Console.WriteLine($"O aluno a4 {a4.Nome} está matriculado? {csharpColecoes.EstaMatriculado(a4)}");
 
-        Console.WriteLine("a1 Equals a4?");
-        Console.WriteLine(a1.Equals(a4));
+        //Console.WriteLine("a1 == a4?");
+        //Console.WriteLine(a1 == a4);
+
+        //Console.WriteLine("a1 Equals a4?");
+        //Console.WriteLine(a1.Equals(a4));
 
         #endregion
         #endregion
 
         #region dicionarios_dictionary
-        // dicionarios
+        //um dictionary é uma estrutura de chave e valor, onde temos o tipo da chave e o tipo do valor, exemplo: <int, Aluno>
+        //veja na classe curso que implementei um dictionary para conseguir fazer a busca rapida pela matricula
+        //este é um benefício do dictionary, busca rapida
+        //o dicionario nao permite adicionar um elemento na mesma chave com add, dá erro
+        //mas pode-se substituir o valor usando variavel[indice] = valornovo. Esta sintaxe tanto pode incluir um  novo elemento se indice nao existir, ou substituir se ja existir
+        //internamente usa codigo de dispersao da chave do elemento, e valores
+        Curso csharpColecoes = new Curso("Csharp colecoes", "Marcelo Oliveira");
+
+        Aluno a1 = new Aluno("Vanessa", 34672);
+        Aluno a2 = new Aluno("Ana", 5617);
+        Aluno a3 = new Aluno("Rafael", 17645);
+        Aluno a4 = new Aluno("Vanessa", 34672);
+
+        csharpColecoes.Matricula(a1);
+        csharpColecoes.Matricula(a2);
+        csharpColecoes.Matricula(a3);
+
+        Console.WriteLine("Aluno 5617");
+        Aluno aluno5617 = csharpColecoes.EstaMatriculadoDict(a2.NumeroMatricula);
+        Console.WriteLine(aluno5617);
+
+        Console.WriteLine("Aluno 989898");
+        Aluno aluno989898 = csharpColecoes.EstaMatriculadoDict(989898);
+        Console.WriteLine(aluno989898);
         #endregion
 
         #region lista_ligada_linkedlist
@@ -277,19 +300,19 @@ partial class Program {
     #endregion
 
     #region conjuntos_set_com_modelo_cursos_metodos
-    public static void ImprimirListaObjectGenerico<T1, T2>(T1 lista, String texto = "") where T1 : IEnumerable<T2>
-    {
-        if (texto != "")
-        {
-            Console.WriteLine();
-            Console.WriteLine(texto);
-        }
+    //public static void ImprimirListaObjectGenerico<T1, T2>(T1 lista, String texto = "") where T1 : IEnumerable<T2>
+    //{
+    //    if (texto != "")
+    //    {
+    //        Console.WriteLine();
+    //        Console.WriteLine(texto);
+    //    }
 
-        foreach (var item in lista)
-        {
-            Console.WriteLine(item);
-        }
-    }
+    //    foreach (var item in lista)
+    //    {
+    //        Console.WriteLine(item);
+    //    }
+    //}
 
     #endregion
 
@@ -442,6 +465,8 @@ class Curso
     private string instrutor;
     private IList<Aula> aulas; // IList nao da suporte ao metodo sort
 
+    private IDictionary<int, Aluno> dicionarioAlunos = new Dictionary<int, Aluno>();
+
     //aluno deve ser um ISet. Aluno deve retornar um ReadOnlyCollection
     private ISet<Aluno> alunos = new HashSet<Aluno>();
     public IList<Aluno> Alunos
@@ -489,12 +514,24 @@ class Curso
     }
     internal void Matricula(Aluno aluno) {
         alunos.Add(aluno);
+        dicionarioAlunos.Add(aluno.NumeroMatricula, aluno);
     }
 
     public bool EstaMatriculado(Aluno aluno)
     {
         var estaMatriculado = alunos.Contains(aluno);
         return estaMatriculado;
+    }
+
+    public Aluno EstaMatriculadoDict(int numeroMatricula) {
+        Aluno aluno = null;
+
+        //aluno = dicionarioAlunos[numeroMatricula];
+        //se nao achar dispara numeroMatricula exceção sem tratamento: System.Collections.Generic.KeyNotFoundException: A chave fornecida não estava presente no dicionário.
+
+        dicionarioAlunos.TryGetValue(numeroMatricula, out aluno);
+
+        return aluno;
     }
 }
 #endregion
