@@ -4,9 +4,9 @@
     {
         //CSharpArrays(); // terminar de implementar e testar o que falta
 
-        CSharpCollection1(); // listas, sets, dicionarios, lista ligada, pilha/stack, fila/queue
+        //CSharpCollection1(); // listas, sets, dicionarios, lista ligada, pilha/stack, fila/queue
 
-        //CSharpCollection2();
+        CSharpCollection2();
 
         //CSharpEntityFrameworkCore0();
         //CSharpEntityFrameworkCore1();

@@ -205,7 +205,7 @@ partial class Program {
         //
         //testados: AddFirst, AddLast, AddBefore, AddAfter, Next, Previous, Find, FindLast, Remove, Count, Contains, .Any()
         //testar: RemoveFirst, RemoveLast, Concat, Clear, CopyTo
-        //LinkedList<string> dias = new LinkedList<string>(); // ao se pode já iniciar com os elementos definidos
+        //LinkedList<string> dias = new LinkedList<string>(); // nao se pode já iniciar com os elementos definidos
         /*
         var d4 = dias.AddFirst("quarta");
         Console.WriteLine("d4.Value: " + d4.Value );
@@ -392,7 +392,7 @@ internal class Navegador {
         Console.WriteLine("");
         Console.WriteLine($"Count before Pop() : {historicoAnterior.Count}"); // vazia, google.com, "caelum.com.br" // "alura.com.br" nao eh anterior, eh atual
         Console.WriteLine($"Max before Pop() : {historicoAnterior.Max()}"); // vazia - retorna no max por ser a mais longe a ser alcancada - LIFO - last in first out
-        Console.WriteLine($"Min before Pop() : {historicoAnterior.Min()}"); // retorna caelum por er a primeira a ser alcancada - LIFO last in first out
+        Console.WriteLine($"Min before Pop() : {historicoAnterior.Min()}"); // retorna caelum por ser a primeira a ser alcancada - LIFO last in first out
 
         if (historicoAnterior.Count == 0) {
             Console.WriteLine("nao tem pagina anterior");
