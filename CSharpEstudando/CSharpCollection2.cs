@@ -153,49 +153,96 @@ partial class Program {
         #endregion
 
         #region array_multidimencional
-        string[,] resultados = new string[4,3]; // colocacao, copa
-        //{
-        //  { "Alemanha", "Espanha", "Itália" }, 
-        //  { "Argentina", "Holanda", "França"}, 
-        //  { "Holanda", "Alemanha", "Alemanha" }
-        //};
+        //string[,] resultados = new string[4,3]; // colocacao, copa
+        ////{
+        ////  { "Alemanha", "Espanha", "Itália" }, 
+        ////  { "Argentina", "Holanda", "França"}, 
+        ////  { "Holanda", "Alemanha", "Alemanha" }
+        ////};
 
-        //vai dar o mesmo resultado como se tivesse feito da forma anterior ao iterar para exibir
-        resultados[0, 0] = "Alemanha";
-        resultados[1, 0] = "Argentina";
-        resultados[2, 0] = "Holanda";
-        resultados[3, 0] = "Brasil";
+        ////vai dar o mesmo resultado como se tivesse feito da forma anterior ao iterar para exibir
+        //resultados[0, 0] = "Alemanha";
+        //resultados[1, 0] = "Argentina";
+        //resultados[2, 0] = "Holanda";
+        //resultados[3, 0] = "Brasil";
 
-        resultados[0, 1] = "Espanha";
-        resultados[1, 1] = "Holanda";
-        resultados[2, 1] = "Alemanha";
-        resultados[3, 1] = "Uruguai";
+        //resultados[0, 1] = "Espanha";
+        //resultados[1, 1] = "Holanda";
+        //resultados[2, 1] = "Alemanha";
+        //resultados[3, 1] = "Uruguai";
 
-        resultados[0, 2] = "Itália";
-        resultados[1, 2] = "França";
-        resultados[2, 2] = "Alemanha";
-        resultados[3, 2] = "Portugal";
+        //resultados[0, 2] = "Itália";
+        //resultados[1, 2] = "França";
+        //resultados[2, 2] = "Alemanha";
+        //resultados[3, 2] = "Portugal";
 
-        // interessante notar que imprime o array multidimensional em sequencia, como se fosse um array simples
-        //porque o array multidimencional armazena seus valores em sequencia, como se fosse um array simples
-        //foreach (var selecao in resultados) {
-        //    Console.WriteLine(selecao);
+        //// interessante notar que imprime o array multidimensional em sequencia, como se fosse um array simples
+        ////porque o array multidimencional armazena seus valores em sequencia, como se fosse um array simples
+        ////foreach (var selecao in resultados) {
+        ////    Console.WriteLine(selecao);
+        ////}
+
+        //Console.WriteLine($"elementos da dimensao 0 : {resultados.GetUpperBound(0)}");
+        //Console.WriteLine($"elementos da dimensao 1 : {resultados.GetUpperBound(1)}");
+        //Console.WriteLine("");
+
+        //for (int copa = 0; copa <= resultados.GetUpperBound(1); copa++) {
+        //    int ano = 2014 - (copa * 4);
+        //    Console.Write(ano.ToString().PadRight(15));
         //}
 
-        Console.WriteLine($"elementos da dimensao 0 : {resultados.GetUpperBound(0)}");
-        Console.WriteLine($"elementos da dimensao 1 : {resultados.GetUpperBound(1)}");
-        Console.WriteLine("");
+        //for (int colocacao = 0; colocacao <= resultados.GetUpperBound(0); colocacao++) {
+        //    Console.WriteLine("");
+        //    for (int copa = 0; copa <= resultados.GetUpperBound(1); copa++) {
+        //        Console.Write(resultados[colocacao, copa].PadRight(15));
+        //    }
+        //}
+        #endregion
 
-        for (int copa = 0; copa <= resultados.GetUpperBound(1); copa++) {
-            int ano = 2014 - (copa * 4);
-            Console.Write(ano.ToString().PadRight(15));
+        #region jagged_array_array_dentado
+        //string[][] familias = new string[3][];
+        ////{
+        ////    {"Fred", "Vilma", "Pedrita"},
+        ////    {"Homer", "Margie", "Lisa", "Barth", "Magie"},
+        ////    {"Florinda", "Kiko"}
+        ////};
+
+        //familias[0] = new string[] { "Fred", "Vilma", "Pedrita" };
+        //familias[1] = new string[] { "Homer", "Margie", "Lisa", "Barth", "Magie" };
+        //familias[2] = new string[] { "Florinda", "Kiko" };
+
+        //foreach (var familia in familias) {
+        //    Console.WriteLine(string.Join(",", familia));
+        //}
+        #endregion
+
+        #region consultando_com_linq
+        List<Mes> meses = new List<Mes>
+        {
+            new Mes("Janeiro", 31),
+            new Mes("Fevereiro", 28),
+            new Mes("Março", 31),
+            new Mes("Abril", 30),
+            new Mes("Maio", 31),
+            new Mes("Junho", 30),
+            new Mes("Julho", 31),
+            new Mes("Agosto", 31),
+            new Mes("Setembro", 30),
+            new Mes("Outubro", 31),
+            new Mes("Novembro", 30),
+            new Mes("Dezembro", 31)
+        };
+
+        //requisito : listar os meses que tem 31 dias, mostrar os nomes em maiúsculo, ordenado de forma ascendente
+
+        IEnumerable<string> resultado = meses.Where(x => x.Dias == 31).OrderBy(x => x.Nome.ToUpper()).Select(x => x.Nome.ToUpper());
+
+        foreach (var mes in resultado) {
+            Console.WriteLine(mes);
         }
-
-        for (int colocacao = 0; colocacao <= resultados.GetUpperBound(0); colocacao++) {
-            Console.WriteLine("");
-            for (int copa = 0; copa <= resultados.GetUpperBound(1); copa++) {
-                Console.Write(resultados[colocacao, copa].PadRight(15));
-            }
+        Console.WriteLine("");
+        foreach (var mes in meses.Where(x => x.Dias == 31).OrderBy(x => x.Nome.ToUpper()).Select(x => x.Nome.ToUpper())) {
+            Console.WriteLine(mes);
         }
         #endregion
     }
@@ -203,6 +250,21 @@ partial class Program {
     //#region listas_ _metodos
     //#endregion
 
+}
+
+public class Mes
+ {
+    public Mes(string nome, int dias) {
+        Nome = nome;
+        Dias = dias;
+    }
+
+    public string Nome { get; private set; }
+    public int Dias { get; private set; }
+
+    public override string ToString() {
+        return $"Mes: {this.Nome}, dias: {this.Dias}";
+    }
 }
 
 public class ComparadorStringNaoSensitivoAoCaso : IComparer<string> {
