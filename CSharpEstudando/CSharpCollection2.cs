@@ -9,6 +9,16 @@ partial class Program {
     {
         //Console.WriteLine("CSharpCollection2");
 
+        /*
+        A classe genérica SortedDictionary é uma árvore de busca binária com "comportamento de recuperação de dados" expresso na notação de complexidade O(log n), onde n é o número de elementos
+        no dicionário.
+
+        Sob esse aspecto, ela é similar à classe genérica SortedList, e as duas possuem complexidade de recuperação equivalente: O(log n)
+
+        Porém, SortedDictionary possui operações de inserção e remoção mais rápidas, porque essas operações em SortedDictionary são O(log n), enquanto as mesmas operações
+        no SortedList possuem complexidade O(n).
+        */
+
         #region listas_sortedlist
         // Dictionary<Tkey, TValue> nao eh ordenado, armazena chaves de maneira nao ordenada, utiliza um hash
         //IDictionary<string, Aluno> dicAlunos = new Dictionary<string, Aluno>();
@@ -66,79 +76,126 @@ partial class Program {
         #endregion
 
         #region listas_sortedset
-        //ISet<string> alunos = new SortedSet<string>(new ComparadorStringNaoSensitivoAoCaso()) // diferente do HashSet, o SortedSet é ordenado
+        ////ISet<string> alunos = new SortedSet<string>(new ComparadorStringNaoSensitivoAoCaso()) // diferente do HashSet, o SortedSet é ordenado
 
-        //ISet<string> alunos = new SortedSet<string>((x, y) => string.Compare(x, y, StringComparison.OrdinalIgnoreCase)) // nao funciona passar o comparador como funcao lambda por não ser um delegate o parametro
+        ////ISet<string> alunos = new SortedSet<string>((x, y) => string.Compare(x, y, StringComparison.OrdinalIgnoreCase)) // nao funciona passar o comparador como funcao lambda por não ser um delegate o parametro
 
-        IComparer<string> comparador = Comparer<string>.Create((x, y) => string.Compare(x, y, StringComparison.OrdinalIgnoreCase));
+        //IComparer<string> comparador = Comparer<string>.Create((x, y) => string.Compare(x, y, StringComparison.OrdinalIgnoreCase));
 
-        //SortedSet armazena os valores como arvore binária balanceada, não contem chaves, não é coleção associativa, os valores são as próprias chaves
-        /*
-        IsSubsetOf          - se eh subconjunto
-        IsSupersetOf        - se eh superconjunto
-        SetEquals           - se eh igual
-        IntersectWith       - so o que esta nas duas
-        ExceptWith          - subtrais do primeiro o que nao esta no segundo - alunos.ExceptWith(outroconjunto)
-        SymmetricExceptWith -  somente o que nao tem em comum nos dois
-        UnionWith           - junta os dois
-        */
-        ISet<string> alunos = new SortedSet<string>(comparador) // assim funciona
-        {
-            "Vanessa Tonini", "Ana Losnak", "Rafael Nercessian", "Priscila Stuani"
-        };
+        ////SortedSet armazena os valores como arvore binária balanceada, não contem chaves, não é coleção associativa, os valores são as próprias chaves
+        ///* metodos que funcionam com Iset, ou seja, funcionam para HashSet e para SortedSet
+        //IsSubsetOf          - se eh subconjunto
+        //IsSupersetOf        - se eh superconjunto
+        //SetEquals           - se eh igual
+        //IntersectWith       - so o que esta nas duas
+        //ExceptWith          - subtrais do primeiro o que nao esta no segundo - alunos.ExceptWith(outroconjunto)
+        //SymmetricExceptWith -  somente o que nao tem em comum nos dois
+        //UnionWith           - junta os dois
+        //*/
+        //ISet<string> alunos = new SortedSet<string>(comparador) // assim funciona
+        //{
+        //    "Vanessa Tonini", "Ana Losnak", "Rafael Nercessian", "Priscila Stuani"
+        //};
 
-        alunos.Add("Rafael Rodolfo");
-        alunos.Add("Fabio Gushiken");
-        alunos.Add("FABIO GUSHIKEN");
+        //alunos.Add("Rafael Rodolfo");
+        //alunos.Add("Fabio Gushiken");
+        //alunos.Add("FABIO GUSHIKEN");
 
-        foreach (var aluno in alunos) {
-            Console.WriteLine(aluno);
+        //foreach (var aluno in alunos) {
+        //    Console.WriteLine(aluno);
+        //}
+
+        //ISet<string> outroContunto = new HashSet<string>()
+        //{
+        //    "Vanessa Tonini", "Ana Losnak", "Rafael Nercessian", "Este nao tem"
+        //};
+        //var ehSubset = outroContunto.IsSubsetOf(alunos);
+        //Console.WriteLine($"outroContunto IsSubsetOf alunos: {ehSubset}");
+        //var ehSuperConjunto = alunos.IsSupersetOf(outroContunto);
+        //Console.WriteLine($"alunos IsSupersetOf outroContunto: {ehSuperConjunto}");
+        //var ehigual = alunos.SetEquals(outroContunto);
+        //Console.WriteLine($"alunos SetEquals outroContunto: {ehSuperConjunto}");
+
+        //outroContunto.Remove("Este nao tem");
+
+        //ehSubset = outroContunto.IsSubsetOf(alunos);
+        //Console.WriteLine($"outroContunto IsSubsetOf alunos: {ehSubset}");
+        //ehSuperConjunto = alunos.IsSupersetOf(outroContunto);
+        //Console.WriteLine($"alunos IsSupersetOf outroContunto: {ehSuperConjunto}");
+
+        //Console.WriteLine("");
+        //Console.WriteLine("alunos");
+        //foreach (var aluno in alunos) {
+        //    Console.WriteLine(aluno);
+        //}
+
+        //Console.WriteLine("");
+        //Console.WriteLine("alunos IntersectWith outroContunto");
+        //alunos.IntersectWith(outroContunto);
+        //foreach (var aluno in alunos) {
+        //    Console.WriteLine(aluno);
+        //}
+
+        //Console.WriteLine("");
+        //Console.WriteLine("alunos SymmetricExceptWith outroContunto");
+        //outroContunto.Add("Este nao tem");
+        //alunos.SymmetricExceptWith(outroContunto);
+        //foreach (var aluno in alunos) {
+        //    Console.WriteLine(aluno);
+        //}
+
+        //Console.WriteLine("");
+        //Console.WriteLine("alunos UnionWith outroContunto");
+        //alunos.UnionWith(outroContunto);
+        //foreach (var aluno in alunos) {
+        //    Console.WriteLine(aluno);
+        //}
+        #endregion
+
+        #region array_multidimencional
+        string[,] resultados = new string[4,3]; // colocacao, copa
+        //{
+        //  { "Alemanha", "Espanha", "Itália" }, 
+        //  { "Argentina", "Holanda", "França"}, 
+        //  { "Holanda", "Alemanha", "Alemanha" }
+        //};
+
+        //vai dar o mesmo resultado como se tivesse feito da forma anterior ao iterar para exibir
+        resultados[0, 0] = "Alemanha";
+        resultados[1, 0] = "Argentina";
+        resultados[2, 0] = "Holanda";
+        resultados[3, 0] = "Brasil";
+
+        resultados[0, 1] = "Espanha";
+        resultados[1, 1] = "Holanda";
+        resultados[2, 1] = "Alemanha";
+        resultados[3, 1] = "Uruguai";
+
+        resultados[0, 2] = "Itália";
+        resultados[1, 2] = "França";
+        resultados[2, 2] = "Alemanha";
+        resultados[3, 2] = "Portugal";
+
+        // interessante notar que imprime o array multidimensional em sequencia, como se fosse um array simples
+        //porque o array multidimencional armazena seus valores em sequencia, como se fosse um array simples
+        //foreach (var selecao in resultados) {
+        //    Console.WriteLine(selecao);
+        //}
+
+        Console.WriteLine($"elementos da dimensao 0 : {resultados.GetUpperBound(0)}");
+        Console.WriteLine($"elementos da dimensao 1 : {resultados.GetUpperBound(1)}");
+        Console.WriteLine("");
+
+        for (int copa = 0; copa <= resultados.GetUpperBound(1); copa++) {
+            int ano = 2014 - (copa * 4);
+            Console.Write(ano.ToString().PadRight(15));
         }
 
-        ISet<string> outroContunto = new HashSet<string>()
-        {
-            "Vanessa Tonini", "Ana Losnak", "Rafael Nercessian", "Este nao tem"
-        };
-        var ehSubset = outroContunto.IsSubsetOf(alunos);
-        Console.WriteLine($"outroContunto IsSubsetOf alunos: {ehSubset}");
-        var ehSuperConjunto = alunos.IsSupersetOf(outroContunto);
-        Console.WriteLine($"alunos IsSupersetOf outroContunto: {ehSuperConjunto}");
-        var ehigual = alunos.SetEquals(outroContunto);
-        Console.WriteLine($"alunos SetEquals outroContunto: {ehSuperConjunto}");
-
-        outroContunto.Remove("Este nao tem");
-
-        ehSubset = outroContunto.IsSubsetOf(alunos);
-        Console.WriteLine($"outroContunto IsSubsetOf alunos: {ehSubset}");
-        ehSuperConjunto = alunos.IsSupersetOf(outroContunto);
-        Console.WriteLine($"alunos IsSupersetOf outroContunto: {ehSuperConjunto}");
-
-        Console.WriteLine("");
-        Console.WriteLine("alunos");
-        foreach (var aluno in alunos) {
-            Console.WriteLine(aluno);
-        }
-
-        Console.WriteLine("");
-        Console.WriteLine("alunos IntersectWith outroContunto");
-        alunos.IntersectWith(outroContunto);
-        foreach (var aluno in alunos) {
-            Console.WriteLine(aluno);
-        }
-
-        Console.WriteLine("");
-        Console.WriteLine("alunos SymmetricExceptWith outroContunto");
-        outroContunto.Add("Este nao tem");
-        alunos.SymmetricExceptWith(outroContunto);
-        foreach (var aluno in alunos) {
-            Console.WriteLine(aluno);
-        }
-
-        Console.WriteLine("");
-        Console.WriteLine("alunos UnionWith outroContunto");
-        alunos.UnionWith(outroContunto);
-        foreach (var aluno in alunos) {
-            Console.WriteLine(aluno);
+        for (int colocacao = 0; colocacao <= resultados.GetUpperBound(0); colocacao++) {
+            Console.WriteLine("");
+            for (int copa = 0; copa <= resultados.GetUpperBound(1); copa++) {
+                Console.Write(resultados[colocacao, copa].PadRight(15));
+            }
         }
         #endregion
     }
@@ -146,7 +203,7 @@ partial class Program {
     //#region listas_ _metodos
     //#endregion
 
-    }
+}
 
 public class ComparadorStringNaoSensitivoAoCaso : IComparer<string> {
     public int Compare(string? string1, string? string2) {
@@ -160,7 +217,7 @@ public class ComparadorStringNaoSensitivoAoCaso : IComparer<string> {
 
         //return string1.ToLower().CompareTo(string2.ToLower());     // todos funcionam, maneiras diferentes de implementar
         //return string.Compare(string1.ToLower(), string2.ToLower()); // todos funcionam, maneiras diferentes de implementar, acredito que este seja melhor
-        return string.Compare(string1, string2, StringComparison.InvariantCultureIgnoreCase); // todos funcionam, maneiras diferentes de implementar, acredito que este seja melhor
+        return string.Compare(string1, string2, StringComparison.InvariantCultureIgnoreCase); // todos funcionam, maneiras diferentes de implementar, acredito que este seja ainda melhor
     }
 }
 
