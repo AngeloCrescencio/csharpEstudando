@@ -179,24 +179,24 @@ partial class Program {
         //o dicionario nao permite adicionar um elemento na mesma chave com add, dá erro
         //mas pode-se substituir o valor usando variavel[indice] = valornovo. Esta sintaxe tanto pode incluir um  novo elemento se indice nao existir, ou substituir se ja existir
         //internamente usa codigo de dispersao da chave do elemento, e valores
-        Curso csharpColecoes = new Curso("Csharp colecoes", "Marcelo Oliveira");
+        //Curso csharpColecoes = new Curso("Csharp colecoes", "Marcelo Oliveira");
 
-        Aluno a1 = new Aluno("Vanessa", 34672);
-        Aluno a2 = new Aluno("Ana", 5617);
-        Aluno a3 = new Aluno("Rafael", 17645);
-        Aluno a4 = new Aluno("Vanessa", 34672);
+        //Aluno a1 = new Aluno("Vanessa", 34672);
+        //Aluno a2 = new Aluno("Ana", 5617);
+        //Aluno a3 = new Aluno("Rafael", 17645);
+        //Aluno a4 = new Aluno("Vanessa", 34672);
 
-        csharpColecoes.Matricula(a1);
-        csharpColecoes.Matricula(a2);
-        csharpColecoes.Matricula(a3);
+        //csharpColecoes.Matricula(a1);
+        //csharpColecoes.Matricula(a2);
+        //csharpColecoes.Matricula(a3);
 
-        Console.WriteLine("Aluno 5617");
-        Aluno aluno5617 = csharpColecoes.EstaMatriculadoDict(a2.NumeroMatricula);
-        Console.WriteLine(aluno5617);
+        //Console.WriteLine("Aluno 5617");
+        //Aluno aluno5617 = csharpColecoes.EstaMatriculadoDict(a2.NumeroMatricula);
+        //Console.WriteLine(aluno5617);
 
-        Console.WriteLine("Aluno 989898");
-        Aluno aluno989898 = csharpColecoes.EstaMatriculadoDict(989898);
-        Console.WriteLine(aluno989898);
+        //Console.WriteLine("Aluno 989898");
+        //Aluno aluno989898 = csharpColecoes.EstaMatriculadoDict(989898);
+        //Console.WriteLine(aluno989898);
         #endregion
 
         #region lista_ligada_linkedlist
@@ -428,114 +428,4 @@ internal class Navegador {
     }
 }
 */
-#endregion
-
-#region listas_list_object_classes
-class Aula : IComparable {
-    private string titulo;
-    private int tempo;
-
-    public Aula(string titulo, int tempo) {
-        this.titulo = titulo;
-        this.tempo = tempo;
-    }
-
-    public string Titulo { get => titulo; set => titulo = value; }
-    public int Tempo { get => tempo; set => tempo = value; }
-
-    public int CompareTo(object? aula)
-    {
-        var outraAula = aula as Aula;
-        return this.titulo.CompareTo(outraAula.titulo);
-    }
-
-    public override string ToString() {
-        return $"[titulo: {titulo} , tempo: {tempo} minutos]";
-    }
-}
-#endregion
-
-#region listas_list_somente_leitura_classes
-//descomentar listas_list_object_classes
-class Curso
-{
-
-    //propfull
-    private string nome;
-    private string instrutor;
-    private IList<Aula> aulas; // IList nao da suporte ao metodo sort
-
-    private IDictionary<int, Aluno> dicionarioAlunos = new Dictionary<int, Aluno>();
-
-    //aluno deve ser um ISet. Aluno deve retornar um ReadOnlyCollection
-    private ISet<Aluno> alunos = new HashSet<Aluno>();
-    public IList<Aluno> Alunos
-    {
-        get {
-            //return new ReadOnlyCollection<Aluno>(alunos); // nao funciona, Iset nao pode ser convertido em IList, só lista pode, entao fazer como abaixo
-            return new ReadOnlyCollection<Aluno>(alunos.ToList());
-        }
-    }
-
-    public Curso(string nome, string instrutor) {
-        this.nome = nome;
-        this.instrutor = instrutor;
-        this.aulas = new List<Aula>();
-    }
-
-    public string Nome {
-        get { return nome; }
-        set { nome = value; }
-    }
-    public string Instrutor {
-        get { return instrutor; }
-        set { instrutor = value; }
-    }
-
-    //public List<Aula> Aulas { // o ReadOnlyCollection implementa um IList, entao tem que mudar o tipo da propriedade Aulas
-    public IList<Aula> Aulas {
-        //get { return aulas; } // code smell
-        get { return new ReadOnlyCollection<Aula>(aulas); } // o ReadOnlyCollection implementa um IList, entao tem que mudar o tipo da propriedade Aulas
-        //set { aulas = value; } // code smell
-    }
-
-    public void Adiciona(Aula aula) {
-        this.aulas.Add(aula);
-    }
-
-    public int TempoTotal {
-        get {
-            return this.aulas.Sum(aula => aula.Tempo);
-        }
-    }
-
-    public override string ToString() {
-        return $"Curso: {nome}, Tempo: {TempoTotal}, Aulas: {string.Join(",", aulas)}";
-    }
-    internal void Matricula(Aluno aluno) {
-        alunos.Add(aluno);
-        dicionarioAlunos.Add(aluno.NumeroMatricula, aluno);
-    }
-
-    public bool EstaMatriculado(Aluno aluno)
-    {
-        var estaMatriculado = alunos.Contains(aluno);
-        return estaMatriculado;
-    }
-
-    public Aluno EstaMatriculadoDict(int numeroMatricula) {
-        Aluno aluno = null;
-
-        //aluno = dicionarioAlunos[numeroMatricula];
-        //se nao achar dispara numeroMatricula exceção sem tratamento: System.Collections.Generic.KeyNotFoundException: A chave fornecida não estava presente no dicionário.
-
-        dicionarioAlunos.TryGetValue(numeroMatricula, out aluno);
-
-        return aluno;
-    }
-}
-#endregion
-
-#region conjuntos_set_classes
-//descomentar listas_list_somente_leitura_classes
 #endregion

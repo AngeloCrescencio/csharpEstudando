@@ -76,7 +76,7 @@ partial class Program {
         #endregion
 
         #region listas_sortedset
-        ////ISet<string> alunos = new SortedSet<string>(new ComparadorStringNaoSensitivoAoCaso()) // diferente do HashSet, o SortedSet é ordenado
+        ////ISet<string> alunos = new SortedSet<string>(new ComparadorStringNaoSensitivoAoCaso()); // diferente do HashSet, o SortedSet é ordenado
 
         ////ISet<string> alunos = new SortedSet<string>((x, y) => string.Compare(x, y, StringComparison.OrdinalIgnoreCase)) // nao funciona passar o comparador como funcao lambda por não ser um delegate o parametro
 
@@ -92,6 +92,7 @@ partial class Program {
         //SymmetricExceptWith -  somente o que nao tem em comum nos dois
         //UnionWith           - junta os dois
         //*/
+
         //ISet<string> alunos = new SortedSet<string>(comparador) // assim funciona
         //{
         //    "Vanessa Tonini", "Ana Losnak", "Rafael Nercessian", "Priscila Stuani"
@@ -152,197 +153,51 @@ partial class Program {
         //}
         #endregion
 
-        #region array_multidimencional
-        //string[,] resultados = new string[4,3]; // colocacao, copa
-        ////{
-        ////  { "Alemanha", "Espanha", "Itália" }, 
-        ////  { "Argentina", "Holanda", "França"}, 
-        ////  { "Holanda", "Alemanha", "Alemanha" }
-        ////};
+        #region convetendo_e_enumerando_colecoes
 
-        ////vai dar o mesmo resultado como se tivesse feito da forma anterior ao iterar para exibir
-        //resultados[0, 0] = "Alemanha";
-        //resultados[1, 0] = "Argentina";
-        //resultados[2, 0] = "Holanda";
-        //resultados[3, 0] = "Brasil";
-
-        //resultados[0, 1] = "Espanha";
-        //resultados[1, 1] = "Holanda";
-        //resultados[2, 1] = "Alemanha";
-        //resultados[3, 1] = "Uruguai";
-
-        //resultados[0, 2] = "Itália";
-        //resultados[1, 2] = "França";
-        //resultados[2, 2] = "Alemanha";
-        //resultados[3, 2] = "Portugal";
-
-        //// interessante notar que imprime o array multidimensional em sequencia, como se fosse um array simples
-        ////porque o array multidimencional armazena seus valores em sequencia, como se fosse um array simples
-        ////foreach (var selecao in resultados) {
-        ////    Console.WriteLine(selecao);
-        ////}
-
-        //Console.WriteLine($"elementos da dimensao 0 : {resultados.GetUpperBound(0)}");
-        //Console.WriteLine($"elementos da dimensao 1 : {resultados.GetUpperBound(1)}");
-        //Console.WriteLine("");
-
-        //for (int copa = 0; copa <= resultados.GetUpperBound(1); copa++) {
-        //    int ano = 2014 - (copa * 4);
-        //    Console.Write(ano.ToString().PadRight(15));
-        //}
-
-        //for (int colocacao = 0; colocacao <= resultados.GetUpperBound(0); colocacao++) {
-        //    Console.WriteLine("");
-        //    for (int copa = 0; copa <= resultados.GetUpperBound(1); copa++) {
-        //        Console.Write(resultados[colocacao, copa].PadRight(15));
-        //    }
-        //}
         #endregion
 
-        #region jagged_array_array_dentado
-        //string[][] familias = new string[3][];
-        ////{
-        ////    {"Fred", "Vilma", "Pedrita"},
-        ////    {"Homer", "Margie", "Lisa", "Barth", "Magie"},
-        ////    {"Florinda", "Kiko"}
-        ////};
+        #region o_laco_foreach
+        //conversao de string para object
+        string strTitulo = "meses";
+        object objTitulo = strTitulo; // string herda de object, da pra fazer
+        Console.WriteLine("string para object ok");
+        Console.WriteLine(objTitulo);
+        Console.WriteLine();
 
-        //familias[0] = new string[] { "Fred", "Vilma", "Pedrita" };
-        //familias[1] = new string[] { "Homer", "Margie", "Lisa", "Barth", "Magie" };
-        //familias[2] = new string[] { "Florinda", "Kiko" };
 
-        //foreach (var familia in familias) {
-        //    Console.WriteLine(string.Join(",", familia));
-        //}
-        #endregion
-
-        #region consultando_com_linq1
-        /*
-        .Where
-        .OrderBy
-        .Select
-        .Take
-        .Skip
-        .TakeWhile
-        .SkipWhile
-        .StartsWith
-        .EndsWith
-        .Contains
-        .ToUpper
-        .Concat - junta tudo
-        .Union - junta como se usasse distinct, despreza os iguais (se quiser ignorar o caso usar comparador)
-        .Intersect - somente o que tem nos dois
-        .Except - o que tem em uma (seq1) mas nao tem na outra (seq2)
-        StringComparer. - usa comparadores de string, por exemplo, para nao considerar diferença entre maiuscula a minuscula
-        */
-        List<Mes> meses = new List<Mes>
+        Console.WriteLine("array de string para array de obj, nao recomendado");
+        IList<string> listMeses = new List<string>()
         {
-            new Mes("Janeiro", 31),
-            new Mes("Fevereiro", 28),
-            new Mes("Março", 31),
-            new Mes("Abril", 30),
-            new Mes("Maio", 31),
-            new Mes("Junho", 30),
-            new Mes("Julho", 31),
-            new Mes("Agosto", 31),
-            new Mes("Setembro", 30),
-            new Mes("Outubro", 31),
-            new Mes("Novembro", 30),
-            new Mes("Dezembro", 31)
+            "Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"
         };
+        //IList<Object> objMeses = listMeses; // nao faz conversao implicita pois Ilist nao permite converter IList de String para IList de Object
 
-        //requisito : listar os meses que tem 31 dias, mostrar os nomes em maiúsculo, ordenado de forma ascendente
-
-        IEnumerable<string> resultado = meses.Where(x => x.Dias == 31).OrderBy(x => x.Nome.ToUpper()).Select(x => x.Nome.ToUpper());
-
-        foreach (var mes in resultado) {
+        string[] arrayMeses = new string[] { "Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro" };
+        object[] objMeses = arrayMeses; // ambos sao System.String[] , string[] herda de array, objet[] herda de array, array herda de object, mas funciona pela covariancia
+        Console.WriteLine(arrayMeses);
+        Console.WriteLine(objMeses);
+        foreach (var mes in objMeses) {
             Console.WriteLine(mes);
         }
-        Console.WriteLine("");
-        foreach (var mes in meses.Where(x => x.Dias == 31).OrderBy(x => x.Nome.ToUpper()).Select(x => x.Nome.ToUpper())) {
-            Console.WriteLine(mes);
+        
+        Console.WriteLine();
+        objMeses[0] = "PRIMEIRO MES";
+        Console.WriteLine(objMeses[0]);
+        Console.WriteLine();
+        //problema da covariancia do array, o array sendo de object deveria poder atribuir outros tipos, mas no .net framework nao esta funcionando, nao usar covariancia de array x obj
+        //Console.WriteLine();
+        //objMeses[0] = 12345; // nao funciona, deixa em tempo de codificacao mas da erro ao executar, apesar de estar declarado como array de obj, esta armazendando array de string System.String[]
+        //Console.WriteLine(objMeses[0]);
+
+        Console.WriteLine("array de string para array ienumerable de string, ok");
+        // IEnumerable<out T>, logo é covariante, pode guardra object...ou string..., alem disso o out garante que o tipo não é modificado pela interface, então a covariancia é segura
+        IEnumerable<object> enumObj = listMeses; // listMeses List<string>, covariancia possivel e sem problemas
+        foreach (var item in enumObj) {
+            Console.WriteLine(item);
         }
+        //enumObj[0] = 12345; // o compilador já não deixa, em tempo de codificacao ja aponta erro, o IEnumerable nao possui indexador, entao nao consegue mudar assim
 
-        //requisito : listar o primeiro trimestre
-        var trimestre1 = meses.Take(3);
-        Console.WriteLine("");
-        Console.WriteLine("listar o primeiro trimestre");
-        foreach (var mes in trimestre1) {
-            Console.WriteLine(mes);
-        }
-
-        //requisito : listar os meses depois do o primeiro trimestre
-        var trimestresDeopisDoPrimeiro = meses.Skip(3);
-        Console.WriteLine("");
-        Console.WriteLine("listar os meses depois do o primeiro trimestre");
-        foreach (var mes in trimestresDeopisDoPrimeiro) {
-            Console.WriteLine(mes);
-        }
-
-        //requisito : listar os meses do terceiro trimestre
-        var trimestres3 = meses.Skip(6).Take(3);
-        Console.WriteLine("");
-        Console.WriteLine("listar os meses do terceiro trimestre");
-        foreach (var mes in trimestres3) {
-            Console.WriteLine(mes);
-        }
-
-        //requisito : pegar meses ate o mes que inicie com a letra s
-        var mesesates = meses.TakeWhile(x => !x.Nome.ToUpper().StartsWith("S"));
-        Console.WriteLine("");
-        Console.WriteLine("pegar meses ate o mes que inicie com a letra s");
-        foreach (var mes in mesesates) {
-            Console.WriteLine(mes);
-        }
-
-        //requisito : pegar meses a partir do mes que se inicie com s
-        var mesesaapartirs = meses.SkipWhile(x => !x.Nome.ToUpper().StartsWith("S"));
-        Console.WriteLine("");
-        Console.WriteLine("pegar meses a partir do mes que se inicie com s");
-        foreach (var mes in mesesaapartirs) {
-            Console.WriteLine(mes);
-        }
-
-        Console.ReadKey();
-        Console.Clear();
-
-        string[] seq1 = {"janeiro","fevereiro","março"};
-        string[] seq2 = {"fevereiro","MARÇO","abril"};
-
-        var setConcat = seq1.Concat(seq2);
-        Console.WriteLine("");
-        Console.WriteLine("seq1.Concat(seq2)");
-        foreach (var mes in setConcat) {
-            Console.WriteLine(mes);
-        }
-
-        var setUnion = seq1.Union(seq2);
-        Console.WriteLine("");
-        Console.WriteLine("seq1.Union(seq2)");
-        foreach (var mes in setUnion) {
-            Console.WriteLine(mes);
-        }
-
-        var setUnionComparador = seq1.Union(seq2, StringComparer.InvariantCultureIgnoreCase);
-        Console.WriteLine("");
-        Console.WriteLine("seq1.Union(seq2) mas com comparador para nao diferenciar caso");
-        foreach (var mes in setUnionComparador) {
-            Console.WriteLine(mes);
-        }
-
-        var setIntersect = seq1.Intersect(seq2);
-        Console.WriteLine("");
-        Console.WriteLine("seq1.Intersect(seq2)");
-        foreach (var mes in setIntersect) {
-            Console.WriteLine(mes);
-        }
-
-        var setExcept = seq1.Except(seq2);
-        Console.WriteLine("");
-        Console.WriteLine("seq1.Except(seq2)");
-        foreach (var mes in setExcept) {
-            Console.WriteLine(mes);
-        }
         #endregion
     }
 
@@ -350,37 +205,3 @@ partial class Program {
     //#endregion
 
 }
-
-public class Mes
- {
-    public Mes(string nome, int dias) {
-        Nome = nome;
-        Dias = dias;
-    }
-
-    public string Nome { get; private set; }
-    public int Dias { get; private set; }
-
-    public override string ToString() {
-        return $"Mes: {this.Nome}, dias: {this.Dias}";
-    }
-}
-
-public class ComparadorStringNaoSensitivoAoCaso : IComparer<string> {
-    public int Compare(string? string1, string? string2) {
-
-        if (string1 == null && string2 == null)
-            return 0;
-        else if (string1 == null)
-            return -1;
-        else if (string2 == null)
-            return 1;
-
-        //return string1.ToLower().CompareTo(string2.ToLower());     // todos funcionam, maneiras diferentes de implementar
-        //return string.Compare(string1.ToLower(), string2.ToLower()); // todos funcionam, maneiras diferentes de implementar, acredito que este seja melhor
-        return string.Compare(string1, string2, StringComparison.InvariantCultureIgnoreCase); // todos funcionam, maneiras diferentes de implementar, acredito que este seja ainda melhor
-    }
-}
-
-#region listas_sortedlist_metodos_classe
-#endregion
