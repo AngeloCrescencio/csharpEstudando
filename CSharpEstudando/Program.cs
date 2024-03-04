@@ -19,7 +19,7 @@
         dicionario ordenado - IDictionary SortedDictionary  - trabalha com um KeyCollection armazenadas em uma estrutura de arvore binaria, e as chaves apontam para um ValueCollection
         conjunto ordenado   - ISet SortedSet                - armazena os valores como arvore binária balanceada, não contem chaves, não é coleção associativa, os valores são as próprias chaves
         */
-        CSharpCollection2();
+        //CSharpCollection2();
 
         //CSharpLinqObject();
 

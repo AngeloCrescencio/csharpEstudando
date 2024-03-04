@@ -154,54 +154,79 @@ partial class Program {
         #endregion
 
         #region convetendo_e_enumerando_colecoes
+        ////conversao de string para object
+        //string strTitulo = "meses";
+        //object objTitulo = strTitulo; // string herda de object, da pra fazer
+        //Console.WriteLine("string para object ok");
+        //Console.WriteLine(objTitulo);
+        //Console.WriteLine();
 
+        //Console.WriteLine("array de string para array de obj, nao recomendado");
+        //IList<string> listMeses = new List<string>()
+        //{
+        //    "Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"
+        //};
+        ////IList<Object> objMeses = listMeses; // nao faz conversao implicita pois Ilist nao permite converter IList de String para IList de Object
+
+        //string[] arrayMeses = new string[] { "Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro" };
+        //object[] objMeses = arrayMeses; // ambos sao System.String[] , string[] herda de array, objet[] herda de array, array herda de object, mas funciona pela covariancia
+        //Console.WriteLine(arrayMeses);
+        //Console.WriteLine(objMeses);
+        //foreach (var mes in objMeses) {
+        //    Console.WriteLine(mes);
+        //}
+
+        //Console.WriteLine();
+        //objMeses[0] = "PRIMEIRO MES";
+        //Console.WriteLine(objMeses[0]);
+        //Console.WriteLine();
+        ////problema da covariancia do array, o array sendo de object deveria poder atribuir outros tipos, mas no .net framework nao esta funcionando, nao usar covariancia de array x obj
+        ////Console.WriteLine();
+        ////objMeses[0] = 12345; // nao funciona, deixa em tempo de codificacao mas da erro ao executar, apesar de estar declarado como array de obj, esta armazendando array de string System.String[]
+        ////Console.WriteLine(objMeses[0]);
+
+        //Console.WriteLine("array de string para array ienumerable de string, ok");
+        //// IEnumerable<out T>, logo é covariante, pode guardra object...ou string..., alem disso o out garante que o tipo não é modificado pela interface, então a covariancia é segura
+        //IEnumerable<object> enumObj = listMeses; // listMeses List<string>, covariancia possivel e sem problemas
+        //foreach (var item in enumObj) {
+        //    Console.WriteLine(item);
+        //}
+        ////enumObj[0] = 12345; // o compilador já não deixa, em tempo de codificacao ja aponta erro, o IEnumerable nao possui indexador, entao nao consegue mudar assim
         #endregion
 
         #region o_laco_foreach
-        //conversao de string para object
-        string strTitulo = "meses";
-        object objTitulo = strTitulo; // string herda de object, da pra fazer
-        Console.WriteLine("string para object ok");
-        Console.WriteLine(objTitulo);
-        Console.WriteLine();
+        //Console.WriteLine("foreach e List<string>");
+        //var listMeses = new List<string>()
+        //{
+        //    "Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"
+        //};
+        ////foreach implementa um IEnumerable<t>, que tem um Enumerator, este Enumerator é um struct que tem um Current (elemento atual) e o metodo MoveNext() que é usado para mover para o proximo
+        ////chama enumerador
+        ////posiciona no indice -1
+        ////quando o foreach inicia, ele utiliza o metodo MoveNext, que move para indice 0, que é janeiro
+        ////vai passando pelo codigo, depois movenext, quando chega no ultimo elemento fica fora da lista e termina o laço foreach
+        ////a colacao ter uma versao, o foreach verifica se mudou a versao da colecao, e da erro se mudar
+        //foreach (var mes in listMeses) {
+        //    //mes = mes.ToUpper(); // nao deixa modificar o iterator do foreach
+        //    //listMeses[0] = listMeses[0].ToUpper(); // nao da erro ao codificar, mas da erro ao executar, pois dentro do indexador tem um codigo que tem a versão da colecao
+        //    Console.WriteLine(mes);
+        //}
 
-
-        Console.WriteLine("array de string para array de obj, nao recomendado");
-        IList<string> listMeses = new List<string>()
-        {
-            "Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"
-        };
-        //IList<Object> objMeses = listMeses; // nao faz conversao implicita pois Ilist nao permite converter IList de String para IList de Object
-
-        string[] arrayMeses = new string[] { "Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro" };
-        object[] objMeses = arrayMeses; // ambos sao System.String[] , string[] herda de array, objet[] herda de array, array herda de object, mas funciona pela covariancia
-        Console.WriteLine(arrayMeses);
-        Console.WriteLine(objMeses);
-        foreach (var mes in objMeses) {
-            Console.WriteLine(mes);
-        }
-        
-        Console.WriteLine();
-        objMeses[0] = "PRIMEIRO MES";
-        Console.WriteLine(objMeses[0]);
-        Console.WriteLine();
-        //problema da covariancia do array, o array sendo de object deveria poder atribuir outros tipos, mas no .net framework nao esta funcionando, nao usar covariancia de array x obj
         //Console.WriteLine();
-        //objMeses[0] = 12345; // nao funciona, deixa em tempo de codificacao mas da erro ao executar, apesar de estar declarado como array de obj, esta armazendando array de string System.String[]
-        //Console.WriteLine(objMeses[0]);
-
-        Console.WriteLine("array de string para array ienumerable de string, ok");
-        // IEnumerable<out T>, logo é covariante, pode guardra object...ou string..., alem disso o out garante que o tipo não é modificado pela interface, então a covariancia é segura
-        IEnumerable<object> enumObj = listMeses; // listMeses List<string>, covariancia possivel e sem problemas
-        foreach (var item in enumObj) {
-            Console.WriteLine(item);
-        }
-        //enumObj[0] = 12345; // o compilador já não deixa, em tempo de codificacao ja aponta erro, o IEnumerable nao possui indexador, entao nao consegue mudar assim
-
+        //Console.WriteLine("foreach e string[]");
+        //var arrayMeses = new string[]
+        //{
+        //    "Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"
+        //};
+        ////transforma em laço for for (int i = 0; i < arrayMeses.Lenght; i++) { var mes = arrayMeses[i]
+        //foreach (var mes in arrayMeses) {
+        //    arrayMeses[0] = arrayMeses[0].ToUpper(); // nao funciona porque anets de executar este meu codigo, fez o var mes = arrayMeses[i]
+        //    Console.WriteLine(mes);
+        //    Console.WriteLine(mes.ToUpper());
+        //}
         #endregion
     }
 
     //#region listas_ _metodos
     //#endregion
-
 }
