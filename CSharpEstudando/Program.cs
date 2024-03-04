@@ -22,6 +22,7 @@
         //CSharpCollection2();
 
         //CSharpLinqObject();
+        CSharpLinqXml();
 
         //CSharpEntityFrameworkCore0();
         //CSharpEntityFrameworkCore1();
